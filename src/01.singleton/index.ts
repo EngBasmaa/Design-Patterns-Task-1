@@ -7,32 +7,39 @@ class DatabaseConnection {
     }
   }
 
-  static getInstance(): DatabaseConnection {
-    if (!DatabaseConnection.instance) {
-      DatabaseConnection.instance = new DatabaseConnection();
-      Object.freeze(DatabaseConnection.instance); // freeze here to forbid Editing
-    }
+  // static getInstance(): DatabaseConnection {
+  //   if (!DatabaseConnection.instance) {
+  //     DatabaseConnection.instance = new DatabaseConnection();
+  //     Object.freeze(DatabaseConnection.instance); // freeze here to forbid Editing
+  //   }
 
+  //   return DatabaseConnection.instance;
+  // }
+
+  static getInstance(): DatabaseConnection {
+    if (DatabaseConnection.instance) {
+      throw new Error("Instance already exists");
+    }
+    DatabaseConnection.instance = new DatabaseConnection();
     return DatabaseConnection.instance;
   }
-
   connect() {
     console.log("Database connected.");
   }
-
   disconnect() {
     console.log("Database disconnected.");
   }
 }
 
-const db1 = DatabaseConnection.getInstance();
-db1.connect();
+const db_connection = DatabaseConnection.getInstance();
+db_connection.connect();
 
 
 try {
   const db2 = new (DatabaseConnection)();
+  console.log(db2)
 } catch (err: any) {
   console.error("Error:", err.message);
 }
 
-export { DatabaseConnection };
+export { db_connection };
