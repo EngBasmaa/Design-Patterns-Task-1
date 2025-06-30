@@ -10,7 +10,7 @@ class DatabaseConnection {
   // static getInstance(): DatabaseConnection {
   //   if (!DatabaseConnection.instance) {
   //     DatabaseConnection.instance = new DatabaseConnection();
-  //     Object.freeze(DatabaseConnection.instance); // freeze here to forbid Editing
+  //     Object.freeze(DatabaseConnection.instance);
   //   }
 
   //   return DatabaseConnection.instance;
@@ -34,6 +34,7 @@ class DatabaseConnection {
 const db_connection = DatabaseConnection.getInstance();
 db_connection.connect();
 
+Object.freeze(db_connection);
 
 try {
   const db2 = new (DatabaseConnection)();
